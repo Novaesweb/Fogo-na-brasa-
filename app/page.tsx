@@ -21,7 +21,7 @@ export default function Home(){
  const [name,setName]=useState(""); const [phone,setPhone]=useState(""); const [address,setAddress]=useState(""); const [payment,setPayment]=useState("Pix manual"); const [note,setNote]=useState("");
  useEffect(()=>{try{const p=localStorage.getItem("fogo-products");if(p)setProducts(JSON.parse(p));const c=localStorage.getItem("fogo-cart");if(c)setCart(JSON.parse(c).map((l:CartLine)=>({...l,key:l.key||("old-"+l.product.id+"-"+Math.random()),extras:l.extras||[]})));}catch{}},[]);
  useEffect(()=>{try{localStorage.setItem("fogo-cart",JSON.stringify(cart));}catch{}},[cart]);
- const visible=useMemo(()=>products.filter(p=>(category==="Todos"||p.category===category)&& (p.name+" "+p.description).toLowerCase().includes(search.toLowerCase())),[products,category,search]);
+ const visible=useMemo(()=>products.filter(p=>p.available!==false&&(category==="Todos"||p.category===category)&& (p.name+" "+p.description).toLowerCase().includes(search.toLowerCase())),[products,category,search]);
  const count=cart.reduce((s,l)=>s+l.qty,0), subtotal=cart.reduce((s,l)=>s+(l.product.price+l.extras.reduce((a,x)=>a+x.price,0))*l.qty,0), fee=mode==="Entrega"&&cart.length?6.99:0;
  function add(p:Product){setSelectedProduct(p);setSelectedExtras([]);setItemNote("");}
  function confirmAdd(){if(!selectedProduct)return;setCart(old=>[...old,{key:"line-"+Date.now()+"-"+Math.random().toString(36).slice(2,7),product:selectedProduct,qty:1,note:itemNote,extras:selectedExtras}]);setSelectedProduct(null);setSelectedExtras([]);setItemNote("");}
