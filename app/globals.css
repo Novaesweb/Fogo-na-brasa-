@@ -20,3 +20,21 @@
 .search:focus-within{border-color:#ff9b7e;box-shadow:0 0 0 3px #ff572e12}
 .heroimage{background-position:center 48%;background-size:cover}
 @media(max-width:620px){.product-art{height:138px}.product-grid{gap:12px}.product{border-radius:12px}}
+
+
+/* Cardápio com fotografia em destaque */
+.product-art{height:215px;background-size:cover!important;background-position:center!important;transition:background-size .25s ease}
+.product-art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#130c0800 42%,#130c0899 100%);pointer-events:none}
+.product-art .tag,.product-art .heat{z-index:2}
+.product-info{padding:17px}
+.product h3{font-size:15px;line-height:1.35}
+.product-info p{height:40px;font-size:11px}
+.product-cat{display:inline-block;padding:5px 7px;border-radius:4px;background:#fff0e8}
+.product-bottom strong{font-size:21px}
+.product-bottom button{width:39px;height:39px;border-radius:10px}
+.custom-product-photo{position:relative;height:190px;margin:18px 0 4px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 60%,#77432a,#211814 70%);background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:13px}
+.custom-product-photo small{color:#fff;background:#171514b8;padding:6px 9px;border-radius:5px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}
+.custom-product-photo>span{font-size:76px;margin:auto;filter:drop-shadow(0 8px 8px #0008)}
+.custom-description{margin:12px 0 18px}
+@media(max-width:850px){.product-art{height:185px}}
+@media(max-width:620px){.product-art{height:155px}.product-info{padding:12px}.product h3{font-size:13px}.product-info p{font-size:10px;height:45px}.product-bottom strong{font-size:18px}.product-bottom button{width:34px;height:34px}.custom-product-photo{height:165px}}
