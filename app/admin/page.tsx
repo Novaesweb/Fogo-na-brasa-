@@ -3,7 +3,7 @@ import {useEffect,useState} from "react";
 import {Flame,ArrowLeft,Package,ClipboardList,Plus,Trash2,Pencil,X} from "lucide-react";
 import Link from "next/link";
 import {initialProducts,formatPrice,type Product} from "../data";
-type Order={id:string;name:string;phone:string;address:string;mode:string;payment:string;note:string;items:{product:Product;qty:number}[];total:number;status:string;createdAt:string};
+type Order={id:string;name:string;phone:string;address:string;mode:string;payment:string;note:string;items:{product:Product;qty:number;extras?:{name:string;price:number}[]}[];total:number;status:string;createdAt:string};
 const statuses=["Recebido","Preparando","Itens separados","Esperando motoboy","Saiu para entrega","Entregue","Cancelado"];
 export default function Admin(){const [tab,setTab]=useState("orders");const [products,setProducts]=useState<Product[]>(initialProducts);const [orders,setOrders]=useState<Order[]>([]);const [name,setName]=useState("");const [price,setPrice]=useState("");const [description,setDescription]=useState("");const [category,setCategory]=useState("Hambúrgueres");const [editingId,setEditingId]=useState<string|null>(null);const [msg,setMsg]=useState("");
 useEffect(()=>{try{setProducts(JSON.parse(localStorage.getItem("fogo-products")||"null")||initialProducts);setOrders(JSON.parse(localStorage.getItem("fogo-orders")||"[]"));}catch{}},[]);
