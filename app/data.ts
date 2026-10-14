@@ -1,4 +1,4 @@
-export type Product = { id:string; name:string; description:string; price:number; category:string; emoji:string; image?:string; tag?:string; };
+export type Product = { id:string; name:string; description:string; price:number; category:string; emoji:string; image?:string; tag?:string; available?:boolean; };
 export const categories = ["Todos","Hambúrgueres","Combos","Churrasco","Lanches","Porções","Pizzas","Refrigerantes","Bebidas"];
 export const initialProducts: Product[] = [
 {id:"fb-01",name:"Brasa Clássico",description:"Burger 160g, cheddar, cebola caramelizada e molho da casa.",price:29.9,category:"Hambúrgueres",emoji:"🍔",image:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=85",tag:"Mais pedido"},
