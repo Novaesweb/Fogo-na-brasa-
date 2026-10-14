@@ -1,17 +1,20 @@
-export type Product = { id:string; name:string; description:string; price:number; category:string; emoji:string; tag?:string; };
-export const categories = ["Todos","Hambúrgueres","Combos","Churrasco","Lanches","Porções","Pizzas","Bebidas"];
+export type Product = { id:string; name:string; description:string; price:number; category:string; emoji:string; image?:string; tag?:string; };
+export const categories = ["Todos","Hambúrgueres","Combos","Churrasco","Lanches","Porções","Pizzas","Refrigerantes","Bebidas"];
 export const initialProducts: Product[] = [
-{id:"fb-01",name:"Brasa Clássico",description:"Burger 160g, cheddar, cebola caramelizada e molho da casa.",price:29.9,category:"Hambúrgueres",emoji:"🍔",tag:"Mais pedido"},
-{id:"fb-02",name:"Duplo Incendiário",description:"Dois burgers na chapa, cheddar duplo, bacon e molho picante.",price:36.9,category:"Hambúrgueres",emoji:"🔥",tag:"Picante"},
-{id:"fb-03",name:"Smash da Casa",description:"Dois smash burgers, queijo prato, picles e maionese defumada.",price:31.9,category:"Hambúrgueres",emoji:"🥩"},
-{id:"fb-04",name:"Combo Fogo",description:"Brasa Clássico, batata individual e refrigerante lata.",price:42.9,category:"Combos",emoji:"🍟",tag:"Combo"},
-{id:"fb-05",name:"Combo Família",description:"Dois burgers clássicos, batata grande e duas bebidas.",price:79.9,category:"Combos",emoji:"🍔"},
-{id:"fb-06",name:"Espetinho de Alcatra",description:"Alcatra grelhada na brasa com tempero da casa.",price:12.9,category:"Churrasco",emoji:"🍢"},
-{id:"fb-07",name:"Espetinho Misto",description:"Carne e linguiça na brasa, servido no ponto.",price:10.9,category:"Churrasco",emoji:"🔥"},
-{id:"fb-08",name:"Xis Fogo",description:"Pão de xis, burger, queijo, presunto, ovo, milho e salada.",price:32.9,category:"Lanches",emoji:"🥪"},
-{id:"fb-09",name:"Cachorro-quente Completo",description:"Salsicha, molho, milho, batata palha e maionese.",price:18.9,category:"Lanches",emoji:"🌭"},
-{id:"fb-10",name:"Batata Cheddar & Bacon",description:"Batata crocante com cheddar cremoso e bacon.",price:27.9,category:"Porções",emoji:"🍟"},
-{id:"fb-11",name:"Pizza Calabresa",description:"Molho da casa, mozzarella, calabresa e cebola.",price:44.9,category:"Pizzas",emoji:"🍕"},
-{id:"fb-12",name:"Refrigerante Lata",description:"350 ml. Escolha o sabor ao finalizar o pedido.",price:6.5,category:"Bebidas",emoji:"🥤"}
+{id:"fb-01",name:"Brasa Clássico",description:"Burger 160g, cheddar, cebola caramelizada e molho da casa.",price:29.9,category:"Hambúrgueres",emoji:"🍔",image:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=85",tag:"Mais pedido"},
+{id:"fb-02",name:"Duplo Incendiário",description:"Dois burgers na chapa, cheddar duplo, bacon e molho picante.",price:36.9,category:"Hambúrgueres",emoji:"🍔",image:"https://images.unsplash.com/photo-1553979459-d2229ba7433a?auto=format&fit=crop&w=900&q=85",tag:"Picante"},
+{id:"fb-03",name:"Smash da Casa",description:"Dois smash burgers, queijo prato, picles e maionese defumada.",price:31.9,category:"Hambúrgueres",emoji:"🍔",image:"https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=85"},
+{id:"fb-04",name:"Combo Fogo",description:"Brasa Clássico, batata individual e refrigerante lata.",price:42.9,category:"Combos",emoji:"🍔",image:"https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=900&q=85",tag:"Combo"},
+{id:"fb-05",name:"Combo Família",description:"Dois burgers clássicos, batata grande e duas bebidas.",price:79.9,category:"Combos",emoji:"🍟",image:"https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=900&q=85"},
+{id:"fb-06",name:"Espetinho de Alcatra",description:"Alcatra grelhada na brasa com tempero da casa.",price:12.9,category:"Churrasco",emoji:"🍢",image:"https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=85"},
+{id:"fb-07",name:"Espetinho Misto",description:"Carne e linguiça na brasa, servido no ponto.",price:10.9,category:"Churrasco",emoji:"🍢",image:"https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=900&q=85"},
+{id:"fb-08",name:"Xis Fogo",description:"Pão de xis, burger, queijo, presunto, ovo, milho e salada.",price:32.9,category:"Lanches",emoji:"🥪",image:"https://images.unsplash.com/photo-1553909489-cd47e0ef937f?auto=format&fit=crop&w=900&q=85"},
+{id:"fb-09",name:"Cachorro-quente Completo",description:"Salsicha, molho, milho, batata palha e maionese.",price:18.9,category:"Lanches",emoji:"🌭",image:"https://images.unsplash.com/photo-1612392062798-2dbaa3e1c7e1?auto=format&fit=crop&w=900&q=85"},
+{id:"fb-10",name:"Batata Cheddar & Bacon",description:"Batata crocante com cheddar cremoso e bacon.",price:27.9,category:"Porções",emoji:"🍟",image:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85"},
+{id:"fb-11",name:"Pizza Calabresa",description:"Molho da casa, mozzarella, calabresa e cebola.",price:44.9,category:"Pizzas",emoji:"🍕",image:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=85"},
+{id:"fb-12",name:"Coca-Cola Lata",description:"Refrigerante gelado, lata de 350 ml.",price:6.5,category:"Refrigerantes",emoji:"🥤",image:"https://images.unsplash.com/photo-1629203851122-3726ecdf080e?auto=format&fit=crop&w=900&q=85"},
+{id:"fb-13",name:"Guaraná Antarctica Lata",description:"Guaraná bem gelado, lata de 350 ml.",price:6.5,category:"Refrigerantes",emoji:"🥤",image:"https://images.unsplash.com/photo-1581636625402-29b2a704ef13?auto=format&fit=crop&w=900&q=85"},
+{id:"fb-14",name:"Sprite Lata",description:"Refrigerante de limão, lata de 350 ml.",price:6.5,category:"Refrigerantes",emoji:"🥤",image:"https://images.unsplash.com/photo-1625772299848-391b6aef1c93?auto=format&fit=crop&w=900&q=85"},
+{id:"fb-15",name:"Água Mineral",description:"Água mineral sem gás, 500 ml.",price:4.0,category:"Bebidas",emoji:"💧",image:"https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=900&q=85"}
 ];
 export const formatPrice = (price:number) => price.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
