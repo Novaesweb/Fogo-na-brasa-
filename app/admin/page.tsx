@@ -21,7 +21,7 @@ const categoryImageDefaults:Record<string,string>={
 
 const statusClass=(s:string)=>s.toLowerCase().replaceAll(" ","-").replace("ã","a");
 export default function Admin(){
-const [tab,setTab]=useState("overview"),[products,setProducts]=useState<Product[]>(initialProducts),[orders,setOrders]=useState<Order[]>([]);
+const [tab,setTab]=useState("overview"),[sidebarCollapsed,setSidebarCollapsed]=useState(false),[products,setProducts]=useState<Product[]>(initialProducts),[orders,setOrders]=useState<Order[]>([]);
 const [name,setName]=useState(""),[price,setPrice]=useState(""),[description,setDescription]=useState(""),[category,setCategory]=useState("Hambúrgueres"),[imageUrl,setImageUrl]=useState(""),[editingId,setEditingId]=useState<string|null>(null),[msg,setMsg]=useState("");
 const [categoryImages,setCategoryImages]=useState<Record<string,string>>(categoryImageDefaults),[categoryImagesMsg,setCategoryImagesMsg]=useState("");
 const [orderSearch,setOrderSearch]=useState(""),[statusFilter,setStatusFilter]=useState("Todos"),[period,setPeriod]=useState("today");
