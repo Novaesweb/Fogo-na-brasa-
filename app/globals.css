@@ -149,3 +149,105 @@ footer .brand{color:#fff2e3}
  .category-tile-label{font-size:10px}
  .category-tile-count{font-size:8px}
 }
+
+
+/* REFORMA VISUAL COMPLETA: carvão, vermelho rubi e amarelo brasa */
+:root{--bg:#0b0b0b!important;--panel:#171717!important;--muted:#c2b9ae!important;--text:#fff8ed!important;--orange:#e51b23!important;--gold:#ffc928!important;--line:#39302a!important;color-scheme:dark}
+html{background:#0b0b0b!important;scroll-padding-top:18px}
+body{background:#0b0b0b!important;color:#fff4e5!important}
+main{background:#0b0b0b!important;color:#fff4e5!important}
+.topline{background:#050505!important;color:#e7ddd0!important;border-bottom:1px solid #e51b2344!important}
+.topline svg{color:#ffc928!important}
+.nav{background:#0b0b0b!important;color:#fff4e5!important}
+.nav nav{color:#e8d9c9!important}
+.nav nav a:hover{color:#ffc928!important}
+.brand{color:#fff8ec!important}
+.brand b{color:#e51b23!important}
+.brand small{color:#c5b8aa!important}
+.brandmark{background:linear-gradient(145deg,#ff302e,#b50912)!important;color:#fff!important;box-shadow:0 5px 20px #e51b2333!important}
+.cartbtn{background:#191919!important;border:1px solid #40332b!important;color:#fff3e2!important}
+.cartbtn span{background:#ffc928!important;color:#17100a!important}
+.hero{background:#090909!important}
+.heroimage{background-image:radial-gradient(ellipse at 74% 48%,#f52a1f55,transparent 38%),linear-gradient(90deg,#080808 0%,#080808f5 34%,#08080891 69%,#080808aa 100%),url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1800&q=90')!important}
+.eyebrow{color:#ffc928!important}
+.hero h1 em,.section-head h2 em,.callout h2 em,.admin-title h1 em{color:#ffc928!important}
+.hero-content>p{color:#e0d2c4!important}
+.hero-foot{color:#fff0dc!important}
+.hero-stamp{border-color:#ffc928!important;background:#100d0bd9!important}
+.hero-stamp strong{color:#ffc928!important}
+.primary{background:linear-gradient(135deg,#f3262e,#ba0712)!important;color:#fff!important;border:1px solid #ff514b44!important;box-shadow:0 7px 24px #e51b2333!important}
+.primary:hover{background:linear-gradient(135deg,#ff373b,#d10b18)!important}
+.perks{background:#101010!important;border-color:#32251e!important}
+.perks b{color:#fff2e2!important}
+.perks small{color:#bdb0a2!important}
+.perkicon{background:#2b1512!important;color:#ffc928!important;border:1px solid #e51b2333!important}
+.menu-section{background:#0b0b0b!important;color:#fff4e5!important}
+.section-head h2,.callout h2{color:#fff4e5!important}
+.section-head p,.callout p{color:#c5b5a5!important}
+.search{background:#171717!important;border:1px solid #493b31!important;color:#ffc928!important}
+.search:focus-within{border-color:#ffc928!important;box-shadow:0 0 0 3px #ffc92820!important}
+.search input{color:#fff4e5!important}
+.search input::placeholder{color:#988c80!important}
+.categories.category-tiles{background:transparent!important;gap:15px!important;padding:28px 0 34px!important}
+.category-tile{background:linear-gradient(145deg,#1a1a1a,#101010)!important;border:1px solid #39302a!important;color:#fff2e1!important;border-radius:13px!important;box-shadow:0 8px 22px #0008!important;overflow:hidden}
+.category-tile:hover{background:linear-gradient(145deg,#291414,#171010)!important;border-color:#f3262e!important;transform:translateY(-4px)!important;box-shadow:0 14px 30px #e51b2322!important}
+.category-tile.selected{background:linear-gradient(145deg,#381010,#1a1010)!important;border:2px solid #ffc928!important;box-shadow:0 0 0 3px #e51b231c,0 12px 28px #0009!important}
+.category-tile-art{display:block!important;position:relative!important;width:100%!important;height:auto!important;aspect-ratio:1/1!important;min-height:0!important;overflow:hidden!important;border-radius:9px!important;background:#29201a!important;box-shadow:inset 0 0 0 1px #ffffff18!important}
+.category-tile-art img{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;opacity:1!important;visibility:visible!important;z-index:0!important;transition:transform .35s ease!important}
+.category-tile:hover .category-tile-art img{transform:scale(1.07)!important}
+.category-photo-shade{position:absolute!important;inset:0!important;z-index:1!important;pointer-events:none!important;background:linear-gradient(180deg,#00000008 25%,#000000a8 100%)!important}
+.category-tile-label{font-size:13px!important;font-weight:800!important;color:#fff4e5!important}
+.category-tile-count{font-size:10px!important;color:#ffc928!important}
+.product-grid{scroll-margin-top:20px}
+.product{background:#171717!important;border:1px solid #332b25!important;border-radius:13px!important;box-shadow:0 8px 22px #0007!important}
+.product:hover{border-color:#7b211c!important;box-shadow:0 15px 32px #000a!important}
+.product-art{background-color:#211713!important}
+.product-info{background:#171717!important;color:#fff1df!important}
+.product h3{color:#fff4e5!important}
+.product-info p{color:#bdb0a3!important}
+.product-cat{background:#2b1714!important;color:#ffc928!important}
+.product-bottom{border-color:#3a2a22!important}
+.product-bottom strong{color:#ffc928!important}
+.product-bottom button{background:linear-gradient(135deg,#f3262e,#b90a14)!important;color:#fff!important;border:0!important}
+.product-bottom button:hover{background:#ff3b3b!important}
+.tag{background:#ffc928!important;color:#17100a!important}
+.heat{color:#fff8e6!important;text-shadow:0 1px 8px #000!important}
+.selected-category-heading{border-color:#453128!important}
+.selected-category-heading h3{color:#fff4e5!important}
+.selected-category-heading h3 em{color:#ffc928!important}
+.selected-category-heading>button{background:#201515!important;border:1px solid #8a2a25!important;color:#ffc928!important}
+.empty{background:#171412!important;color:#d9c9b8!important;border:1px solid #3c2a22!important;border-radius:10px!important;padding:22px!important}
+.callout{background:radial-gradient(ellipse at 75% 50%,#e51b233b,transparent 45%),linear-gradient(135deg,#1a1110,#080808)!important;border-top:1px solid #6b1a18!important;border-bottom:1px solid #6b1a18!important}
+.callout h2{color:#fff4e5!important}
+footer{background:#050505!important;color:#d8c8b8!important;border-top:1px solid #38211c!important}
+.footer-inner>span,.disclaimer{color:#a8998a!important}
+footer .brand{color:#fff4e5!important}
+.overlay{background:#000d!important;backdrop-filter:blur(5px)!important}
+.drawer,.checkout,.success{background:#151311!important;color:#fff1e2!important;border:1px solid #533127!important;box-shadow:0 25px 90px #000b!important}
+.drawer-head{border-color:#3d2b23!important}
+.drawer-head h2,.checkout h2,.success h2{color:#fff4e5!important}
+.iconbtn{background:#241a16!important;border-color:#503429!important;color:#fff0df!important}
+.cart-line,.cart-total,.extra-options,.extra-option{border-color:#3c2a22!important}
+.line-info b{color:#fff2e2!important}
+.line-info strong,.cart-total .grand b,.checkout-total strong{color:#ffc928!important}
+.qty button{background:#241b17!important;border-color:#4c3528!important;color:#fff1df!important}
+.cart-total>div{color:#d0bfae!important}
+.checkout form label,.item-note-label{color:#ead7c4!important}
+.checkout input,.checkout select,.checkout textarea,.item-note-label textarea{background:#211a16!important;border-color:#4c3528!important;color:#fff1df!important}
+.checkout input::placeholder,.checkout textarea::placeholder,.item-note-label textarea::placeholder{color:#9e8c7c!important}
+.mode-toggle button{background:#201916!important;border-color:#4b3428!important;color:#e8d5c3!important}
+.mode-toggle button.selected{background:#e51b23!important;border-color:#ffc928!important;color:#fff!important}
+.demo-note{color:#b5a18e!important}
+.custom-product-photo{border:1px solid #513127!important}
+.extra-option b{color:#ffc928!important}
+.extra-option input{accent-color:#e51b23!important}
+.success-icon{color:#ffc928!important}
+@media(max-width:900px){.categories.category-tiles{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:11px!important}}
+@media(max-width:620px){
+ .categories.category-tiles{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:9px!important;padding:20px 0 25px!important}
+ .category-tile{padding:8px 6px!important;gap:8px!important}
+ .category-tile-art{width:100%!important;height:auto!important;aspect-ratio:1/1!important}
+ .category-tile-label{font-size:10px!important}
+ .category-tile-count{font-size:8px!important}
+ .heroimage{background-image:linear-gradient(90deg,#080808f7 0%,#080808d9 55%,#08080888 100%),url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1000&q=85')!important}
+}
