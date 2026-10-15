@@ -144,7 +144,7 @@ export default function OwnerPortal() {
             </article>;
           })
         }
-      </section></div>
+      </section></div>}
     <p className="mt-8 text-center text-xs text-stone-600">A área do proprietário não mostra dados de outras lojas. Acesso controlado pela conta autenticada e pelas permissões do banco.</p>
   </div></main>;
 }
