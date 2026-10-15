@@ -168,7 +168,7 @@ main{background:#0b0b0b!important;color:#fff4e5!important}
 .cartbtn{background:#191919!important;border:1px solid #40332b!important;color:#fff3e2!important}
 .cartbtn span{background:#ffc928!important;color:#17100a!important}
 .hero{background:#090909!important}
-.heroimage{background-image:radial-gradient(ellipse at 74% 48%,#f52a1f55,transparent 38%),linear-gradient(90deg,#080808 0%,#080808f5 34%,#08080891 69%,#080808aa 100%),url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1800&q=90')!important}
+.heroimage{background-image:radial-gradient(ellipse at 74% 48%,#f52a1f35,transparent 38%),linear-gradient(90deg,#080808d9 0%,#080808a6 32%,#08080838 66%,#08080855 100%),url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1800&q=90')!important}
 .eyebrow{color:#ffc928!important}
 .hero h1 em,.section-head h2 em,.callout h2 em,.admin-title h1 em{color:#ffc928!important}
 .hero-content>p{color:#e0d2c4!important}
@@ -249,7 +249,7 @@ footer .brand{color:#fff4e5!important}
  .category-tile-art{width:100%!important;height:auto!important;aspect-ratio:1/1!important}
  .category-tile-label{font-size:10px!important}
  .category-tile-count{font-size:8px!important}
- .heroimage{background-image:linear-gradient(90deg,#080808f7 0%,#080808d9 55%,#08080888 100%),url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1000&q=85')!important}
+ .heroimage{background-image:linear-gradient(90deg,#080808e8 0%,#080808a0 48%,#08080842 100%),url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1000&q=90')!important}
 }
 
 
