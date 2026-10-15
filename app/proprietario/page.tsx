@@ -113,7 +113,7 @@ export default function OwnerPortal() {
         <label className="block text-sm text-stone-300">E-mail<input className="mt-1 w-full rounded-xl border border-white/15 bg-black/30 px-4 py-3 outline-none focus:border-orange-400" type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} required/></label>
         <label className="block text-sm text-stone-300">Senha<input className="mt-1 w-full rounded-xl border border-white/15 bg-black/30 px-4 py-3 outline-none focus:border-orange-400" type="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} required/></label>
         <button disabled={busy} className="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-4 py-3 font-semibold text-black disabled:opacity-50">{busy ? "Entrando..." : "Entrar"}</button>
-      </form> : <section className="space-y-4">
+      </form> : <div className="space-y-8"><section className="space-y-4">
         <div className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:flex-row sm:items-center sm:justify-between"><div><div className="flex items-center gap-2"><Bell className="text-orange-400" size={18}/><h2 className="font-semibold">Caixa de entrada</h2></div><p className="mt-1 text-sm text-stone-400">{unread} mensagem(ns) não lida(s)</p></div><button onClick={() => void loadMessages()} className="flex items-center justify-center gap-2 rounded-lg border border-white/15 px-3 py-2 text-sm text-stone-300 hover:bg-white/5"><RefreshCw size={15}/> Atualizar</button></div>
         {messages.length === 0 ? <div className="rounded-2xl border border-dashed border-white/15 p-10 text-center"><Bell className="mx-auto mb-3 text-stone-500" size={28}/><h3 className="font-semibold">Nenhuma mensagem por enquanto</h3><p className="mt-2 text-sm text-stone-400">Os comunicados administrativos da NovaesWeb aparecerão aqui.</p></div> :
           messages.map((message) => <article key={message.id} className={`rounded-2xl border p-5 ${message.read_at ? "border-white/10 bg-white/[0.02]" : "border-orange-500/30 bg-orange-500/[0.04]"}`}>
@@ -143,7 +143,7 @@ export default function OwnerPortal() {
             </article>;
           })
         }
-      </section>
+      </section></div>
     <p className="mt-8 text-center text-xs text-stone-600">A área do proprietário não mostra dados de outras lojas. Acesso controlado pela conta autenticada e pelas permissões do banco.</p>
   </div></main>;
 }
