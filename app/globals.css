@@ -721,3 +721,86 @@ footer .brand{color:#fff4e5!important}
 @media(max-width:620px){.admin-page .admin-nav{padding:0 14px!important;height:68px!important}.admin-page .admin-layout{display:block!important}.admin-page .admin-sidebar{position:sticky!important;top:0!important;z-index:20!important;height:auto!important;display:flex!important;flex-direction:row!important;overflow-x:auto!important;overflow-y:hidden!important;padding:8px!important;background:#101010!important;border-right:0!important;border-bottom:1px solid #343434!important;gap:4px!important}.admin-page .admin-sidebar-label,.admin-page .admin-sidebar-note{display:none!important}.admin-page .admin-sidebar button{flex:0 0 auto!important;width:auto!important;min-height:39px!important;padding:9px 10px!important;font-size:10px!important}.admin-page .admin-sidebar-second{display:none!important}.admin-page .admin-main{padding:24px 14px 45px!important}.admin-page .admin-heading{align-items:flex-start!important}.admin-page .admin-heading h1{font-size:35px!important}.admin-page .admin-stats{gap:10px!important}.admin-page .admin-stat{padding:14px!important}.admin-page .admin-stat>strong{font-size:22px!important}.admin-page .admin-quick-grid{grid-template-columns:1fr!important}.admin-page .order-toolbar{grid-template-columns:1fr 1fr!important}.admin-page .admin-search{grid-column:1/-1!important}.admin-page .admin-category-image-grid{grid-template-columns:1fr!important}.admin-page .admin-category-image-grid img{height:130px!important}.admin-page .admin-visual-actions .primary,.admin-page .admin-visual-actions .admin-cancel{width:100%!important}.admin-page .admin-settings-row{grid-template-columns:1fr!important}.admin-page .admin-settings-form{padding:15px!important}.admin-page .admin-settings-form .primary{width:100%!important}}
 @media print{.admin-page{background:white!important;color:#111!important}.admin-page .admin-nav,.admin-page .admin-sidebar{display:none!important}.admin-page .admin-layout{display:block!important}.admin-page .admin-main{padding:0!important;background:white!important}.admin-page .order-card{background:white!important;border:1px solid #bbb!important;box-shadow:none!important}.admin-page .order-card *{color:#111!important}}
 
+
+
+/* EXPERIENCIA GLOBAL: carregamento de página e atualização manual */
+.app-loading-screen,.app-update-overlay{
+  position:fixed;inset:0;z-index:99999;display:grid;place-items:center;
+  padding:24px;background:rgba(7,7,8,.97);color:#fff;
+}
+.app-loading-content,.app-update-progress-card{
+  width:min(390px,100%);display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:34px 28px;border:1px solid #343434;border-radius:20px;
+  background:linear-gradient(145deg,#191919,#0d0d0e);box-shadow:0 24px 90px #0009;
+}
+.app-loading-logo{
+  width:62px;height:62px;display:grid;place-items:center;border-radius:17px;
+  color:#fff;background:linear-gradient(145deg,#ff353d,#b90e18);
+  box-shadow:0 9px 28px #e51b2338;margin-bottom:18px;
+}
+.app-loading-content>strong{font-size:19px;letter-spacing:.08em;font-weight:800}
+.app-loading-content>strong span{color:#ff454b}
+.app-loading-content p,.app-update-progress-card p{margin:12px 0 20px;color:#b7b7b7;font-size:13px;line-height:1.6}
+.app-loading-track,.app-update-progress-track{
+  width:100%;height:6px;border-radius:99px;background:#353535;overflow:hidden;
+}
+.app-loading-track span{
+  display:block;height:100%;width:0;border-radius:99px;
+  background:linear-gradient(90deg,#b90e18,#ff454b);
+  animation:app-loading-progress .85s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.app-loading-content>small{margin-top:12px;color:#8f8f8f;font-size:11px;letter-spacing:.04em}
+@keyframes app-loading-progress{to{width:100%}}
+.app-update-banner{
+  position:fixed;z-index:99990;right:18px;bottom:18px;width:min(570px,calc(100vw - 28px));
+  display:flex;align-items:center;gap:13px;padding:16px;
+  background:#171717;border:1px solid #803238;border-radius:14px;color:#fff;
+  box-shadow:0 18px 55px #0008;
+}
+.app-update-icon{
+  flex:0 0 42px;width:42px;height:42px;display:grid;place-items:center;
+  color:#ff5a60;background:#e51b231c;border:1px solid #e51b2355;border-radius:11px;
+}
+.app-update-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:5px}
+.app-update-copy strong{font-size:13px;line-height:1.4}
+.app-update-copy>span{font-size:11px;line-height:1.55;color:#c3c3c3}
+.app-update-button{
+  flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  border:1px solid #ff555b;border-radius:8px;padding:10px 12px;
+  background:linear-gradient(135deg,#f02b32,#bb1019);color:white;font-size:12px;font-weight:700;
+}
+.app-update-button:hover{filter:brightness(1.12)}
+.app-update-dismiss{
+  align-self:flex-start;display:grid;place-items:center;padding:3px;border:0;
+  background:transparent;color:#aaa;border-radius:5px;
+}
+.app-update-dismiss:hover{color:#fff;background:#303030}
+.app-update-error{color:#ff9c9f;font-size:11px;line-height:1.5}
+.app-update-progress-card>.app-loading-logo{margin-bottom:20px}
+.app-update-progress-card>strong{font-size:19px}
+.app-update-progress-track span{
+  display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#b90e18,#ff454b);
+  transition:width .12s linear;
+}
+.app-update-progress-label{
+  width:100%;display:flex;justify-content:space-between;gap:12px;margin-top:9px;
+  color:#aaa;font-size:11px;
+}
+.app-update-progress-label b{color:#ff555b;font-variant-numeric:tabular-nums}
+.app-update-progress-card>small{
+  display:flex;align-items:center;justify-content:center;gap:6px;margin-top:22px;
+  color:#a9d8b5;font-size:11px;line-height:1.5;
+}
+.app-update-spin{animation:app-update-rotate 1.2s linear infinite}
+@keyframes app-update-rotate{to{transform:rotate(360deg)}}
+@media(max-width:540px){
+  .app-update-banner{right:10px;bottom:10px;width:calc(100vw - 20px);gap:9px;padding:12px}
+  .app-update-icon{flex-basis:35px;width:35px;height:35px}
+  .app-update-copy strong{font-size:12px}
+  .app-update-copy>span{font-size:10px}
+  .app-update-button{padding:9px;font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){
+  .app-loading-track span,.app-update-spin{animation-duration:0s!important}
+  .app-update-progress-track span{transition:none}
+}
