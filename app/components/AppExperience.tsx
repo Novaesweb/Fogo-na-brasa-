@@ -1,12 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type PropsWithChildren } from "react";
 import { usePathname } from "next/navigation";
 import { BellRing, CheckCircle2, Flame, RefreshCw, X } from "lucide-react";
 
 type AppExperienceProps = { buildVersion: string };
 
-export default function AppExperience({ children, buildVersion }: React.PropsWithChildren<AppExperienceProps>) {
+export default function AppExperience({ children, buildVersion }: PropsWithChildren<AppExperienceProps>) {
   const pathname = usePathname();
   const [pageLoading, setPageLoading] = useState(true);
   const [updateVersion, setUpdateVersion] = useState("");
