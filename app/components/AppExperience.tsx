@@ -8,6 +8,7 @@ type AppExperienceProps = { buildVersion: string };
 
 export default function AppExperience({ children, buildVersion }: PropsWithChildren<AppExperienceProps>) {
   const pathname = usePathname();
+  const isOwnerPortal = pathname.startsWith("/proprietario");
   const [pageLoading, setPageLoading] = useState(true);
   const [siteStatus, setSiteStatus] = useState<{ available: boolean; message: string } | null>(null);
   const [siteStatusChecked, setSiteStatusChecked] = useState(false);
@@ -100,7 +101,7 @@ export default function AppExperience({ children, buildVersion }: PropsWithChild
 
   return (
     <>
-      {siteStatusChecked && siteStatus && !siteStatus.available ? (
+      {!isOwnerPortal && siteStatusChecked && siteStatus && !siteStatus.available ? (
         <main className="min-h-screen bg-[#171514] text-white flex items-center justify-center px-6">
           <section className="max-w-md text-center">
             <span className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-500/15 text-orange-400"><Flame size={34}/></span>
@@ -110,11 +111,11 @@ export default function AppExperience({ children, buildVersion }: PropsWithChild
             <p className="mt-6 text-xs text-stone-500">Status controlado pelo NovaesWeb Master.</p>
           </section>
         </main>
-      ) : !siteStatusChecked ? (
+      ) : !isOwnerPortal && !siteStatusChecked ? (
         <div className="min-h-screen bg-[#171514] text-white flex items-center justify-center" role="status">Verificando disponibilidade da loja...</div>
       ) : children}
 
-      {pageLoading && siteStatusChecked && (!siteStatus || siteStatus.available) && (
+      {pageLoading && (isOwnerPortal || (siteStatusChecked && (!siteStatus || siteStatus.available))) && (
         <div className="app-loading-screen" role="status" aria-live="polite">
           <div className="app-loading-content">
             <span className="app-loading-logo"><Flame size={32} strokeWidth={2.2} /></span>
