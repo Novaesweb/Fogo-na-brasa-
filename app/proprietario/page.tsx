@@ -10,6 +10,7 @@ const supabase = createClient(
   { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } }
 );
 type OwnerMessage = { id: string; store_id: string; category: string; title: string; body: string; created_at: string; read_at: string | null };
+type OwnerOrder = { id: string; order_number: number; status: string; total_cents: number; payload: { customerName?: string; customerPhone?: string; deliveryAddress?: { street?: string; number?: string; neighborhood?: string; complement?: string }; paymentMethod?: string; notes?: string; items?: { name?: string; quantity?: number; price?: number; notes?: string; selectedAddons?: { name?: string }[] }[] }; created_at: string };
 
 export default function OwnerPortal() {
   const [session, setSession] = useState<Session | null>(null);
@@ -18,6 +19,8 @@ export default function OwnerPortal() {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [messages, setMessages] = useState<OwnerMessage[]>([]);
+  const [orders, setOrders] = useState<OwnerOrder[]>([]);
+  const [ordersError, setOrdersError] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
@@ -47,6 +50,26 @@ export default function OwnerPortal() {
     setMessages((data || []) as OwnerMessage[]);
   }, []);
   useEffect(() => { if (session && !passwordSetup) void loadMessages(); }, [session, passwordSetup, loadMessages]);
+  const loadOrders = useCallback(async () => {
+    setOrdersError("");
+    const { data, error: queryError } = await supabase.from("delivery_orders")
+      .select("id,order_number,status,total_cents,payload,created_at")
+      .order("created_at", { ascending: false }).limit(100);
+    if (queryError) { setOrdersError("Não foi possível carregar os pedidos. Confirme se esta conta está vinculada como proprietária da loja."); return; }
+    setOrders((data || []) as OwnerOrder[]);
+  }, []);
+  useEffect(() => {
+    if (!session || passwordSetup) return;
+    void loadOrders();
+    const timer = window.setInterval(() => { void loadOrders(); }, 15000);
+    return () => window.clearInterval(timer);
+  }, [session, passwordSetup, loadOrders]);
+  async function updateOrderStatus(order: OwnerOrder, status: string) {
+    setOrdersError("");
+    const { error: updateError } = await supabase.from("delivery_orders").update({ status }).eq("id", order.id);
+    if (updateError) { setOrdersError("Não foi possível atualizar o status deste pedido."); return; }
+    setOrders((current) => current.map((item) => item.id === order.id ? { ...item, status } : item));
+  }
   const unread = useMemo(() => messages.filter((message) => !message.read_at).length, [messages]);
 
   async function signIn(event: FormEvent) {
@@ -72,7 +95,7 @@ export default function OwnerPortal() {
     if (updateError) { setError("Não foi possível marcar esta mensagem como lida."); return; }
     setMessages((current) => current.map((item) => item.id === message.id ? { ...item, read_at: readAt } : item));
   }
-  async function signOut() { await supabase.auth.signOut(); setSession(null); setMessages([]); setPasswordSetup(false); }
+  async function signOut() { await supabase.auth.signOut(); setSession(null); setMessages([]); setOrders([]); setPasswordSetup(false); }
 
   return <main className="min-h-screen bg-[#11100f] px-4 py-8 text-white sm:px-6"><div className="mx-auto max-w-3xl">
     <header className="mb-8 flex items-center justify-between gap-4 border-b border-white/10 pb-5">
@@ -99,7 +122,28 @@ export default function OwnerPortal() {
             <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-3 text-xs text-stone-500"><span>{new Date(message.created_at).toLocaleString("pt-BR")}</span>{!message.read_at && <button onClick={() => void markRead(message)} className="flex items-center gap-1 rounded-lg border border-white/15 px-3 py-2 text-stone-300 hover:bg-white/5"><Check size={14}/> Marcar como lida</button>}</div>
           </article>)
         }
-      </section>}
+      </section>
+      <section className="mt-8 space-y-4">
+        <div className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div><div className="flex items-center gap-2"><Flame className="text-orange-400" size={18}/><h2 className="font-semibold">Pedidos da loja</h2></div><p className="mt-1 text-sm text-stone-400">Atualização automática a cada 15 segundos · {orders.length} pedido(s)</p></div>
+          <button onClick={() => void loadOrders()} className="flex items-center justify-center gap-2 rounded-lg border border-white/15 px-3 py-2 text-sm text-stone-300 hover:bg-white/5"><RefreshCw size={15}/> Atualizar pedidos</button>
+        </div>
+        {ordersError && <p role="alert" className="rounded-xl border border-red-500/30 bg-red-950/30 p-3 text-sm text-red-200">{ordersError}</p>}
+        {orders.length === 0 ? <div className="rounded-2xl border border-dashed border-white/15 p-8 text-center"><Flame className="mx-auto mb-3 text-stone-500" size={28}/><h3 className="font-semibold">Nenhum pedido recebido</h3><p className="mt-2 text-sm text-stone-400">Quando um cliente finalizar um pedido no site, ele aparecerá aqui.</p></div> :
+          orders.map((order) => {
+            const payload = order.payload || {};
+            const address = payload.deliveryAddress ? [payload.deliveryAddress.street, payload.deliveryAddress.number, payload.deliveryAddress.neighborhood, payload.deliveryAddress.complement].filter(Boolean).join(", ") : "Retirada no local";
+            const statusLabels: Record<string, string> = { recebido: "Recebido", preparando: "Preparando", itens_separados: "Itens separados", esperando_motoboy: "Esperando motoboy", saiu_para_entrega: "Saiu para entrega", entregue: "Entregue", cancelado: "Cancelado" };
+            return <article key={order.id} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+              <div className="flex flex-wrap items-start justify-between gap-3"><div><p className="text-xs font-bold uppercase tracking-wider text-orange-400">Pedido #{order.order_number}</p><h3 className="mt-1 text-lg font-semibold">{payload.customerName || "Cliente"}</h3><p className="text-xs text-stone-500">{new Date(order.created_at).toLocaleString("pt-BR")}</p></div><strong className="text-lg text-orange-300">{(order.total_cents / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</strong></div>
+              <div className="mt-4 grid gap-3 text-sm sm:grid-cols-2"><p><span className="text-stone-500">Telefone:</span> {payload.customerPhone || "Não informado"}</p><p><span className="text-stone-500">Pagamento:</span> {payload.paymentMethod === "pix" ? "Pix manual" : payload.paymentMethod === "cash" ? "Dinheiro" : "Cartão na entrega"}</p><p className="sm:col-span-2"><span className="text-stone-500">Endereço:</span> {address}</p></div>
+              <div className="mt-4"><p className="text-sm font-semibold">Itens do pedido</p><ul className="mt-2 space-y-1 text-sm text-stone-300">{(payload.items || []).map((item, index) => <li key={index}>{item.quantity}× {item.name}{item.selectedAddons?.length ? " · " + item.selectedAddons.map((addon) => addon.name).join(", ") : ""}{item.notes ? " · " + item.notes : ""}</li>)}</ul></div>
+              {payload.notes && <p className="mt-3 text-sm text-stone-300"><span className="text-stone-500">Observações:</span> {payload.notes}</p>}
+              <label className="mt-4 block text-sm text-stone-300">Status do pedido<select value={order.status} onChange={(event) => void updateOrderStatus(order, event.target.value)} className="mt-2 w-full rounded-xl border border-white/15 bg-[#191715] px-3 py-3 text-white sm:max-w-xs">{Object.entries(statusLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
+            </article>;
+          })
+        }
+      </section>
     <p className="mt-8 text-center text-xs text-stone-600">A área do proprietário não mostra dados de outras lojas. Acesso controlado pela conta autenticada e pelas permissões do banco.</p>
   </div></main>;
 }
