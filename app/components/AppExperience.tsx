@@ -9,6 +9,8 @@ type AppExperienceProps = { buildVersion: string };
 export default function AppExperience({ children, buildVersion }: PropsWithChildren<AppExperienceProps>) {
   const pathname = usePathname();
   const [pageLoading, setPageLoading] = useState(true);
+  const [siteStatus, setSiteStatus] = useState<{ available: boolean; message: string } | null>(null);
+  const [siteStatusChecked, setSiteStatusChecked] = useState(false);
   const [updateVersion, setUpdateVersion] = useState("");
   const [updateLoading, setUpdateLoading] = useState(false);
   const [updateProgress, setUpdateProgress] = useState(0);
@@ -26,6 +28,36 @@ export default function AppExperience({ children, buildVersion }: PropsWithChild
       // A temporary network issue should never interrupt the current version.
     }
   }, [buildVersion]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const checkStoreStatus = async () => {
+      try {
+        const response = await fetch("https://mabkzkawziqlmgfikwmh.supabase.co/functions/v1/novaesweb-site-status", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "apikey": "sb_publishable_j6QPu4fgCRZHhOnUPEdyvA_ixP9ibtr" },
+          body: JSON.stringify({ nx_id: "NX-FOGONABRASA-01" }),
+          cache: "no-store"
+        });
+        if (!response.ok) throw new Error("Status indisponível");
+        const data = await response.json();
+        if (!cancelled) setSiteStatus({ available: data.available === true, message: typeof data.message === "string" ? data.message : "" });
+      } catch {
+        // Uma falha temporária de rede é repetida no próximo ciclo.
+      } finally {
+        if (!cancelled) setSiteStatusChecked(true);
+      }
+    };
+    void checkStoreStatus();
+    const poll = window.setInterval(() => void checkStoreStatus(), 30_000);
+    const onFocus = () => void checkStoreStatus();
+    window.addEventListener("focus", onFocus);
+    return () => {
+      cancelled = true;
+      window.clearInterval(poll);
+      window.removeEventListener("focus", onFocus);
+    };
+  }, []);
 
   useEffect(() => {
     setPageLoading(true);
@@ -68,9 +100,21 @@ export default function AppExperience({ children, buildVersion }: PropsWithChild
 
   return (
     <>
-      {children}
+      {siteStatusChecked && siteStatus && !siteStatus.available ? (
+        <main className="min-h-screen bg-[#171514] text-white flex items-center justify-center px-6">
+          <section className="max-w-md text-center">
+            <span className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-500/15 text-orange-400"><Flame size={34}/></span>
+            <p className="text-xs font-bold tracking-[0.25em] text-orange-400">FOGO NA BRASA</p>
+            <h1 className="mt-3 text-2xl font-bold">Loja temporariamente indisponível</h1>
+            <p className="mt-3 text-sm leading-6 text-stone-300">{siteStatus.message || "Esta loja está temporariamente indisponível."}</p>
+            <p className="mt-6 text-xs text-stone-500">Status controlado pelo NovaesWeb Master.</p>
+          </section>
+        </main>
+      ) : !siteStatusChecked ? (
+        <div className="min-h-screen bg-[#171514] text-white flex items-center justify-center" role="status">Verificando disponibilidade da loja...</div>
+      ) : children}
 
-      {pageLoading && (
+      {pageLoading && siteStatusChecked && (!siteStatus || siteStatus.available) && (
         <div className="app-loading-screen" role="status" aria-live="polite">
           <div className="app-loading-content">
             <span className="app-loading-logo"><Flame size={32} strokeWidth={2.2} /></span>
