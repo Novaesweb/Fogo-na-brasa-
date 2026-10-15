@@ -251,3 +251,40 @@ footer .brand{color:#fff4e5!important}
  .category-tile-count{font-size:8px!important}
  .heroimage{background-image:linear-gradient(90deg,#080808f7 0%,#080808d9 55%,#08080888 100%),url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1000&q=85')!important}
 }
+
+
+/* Ajuste final: fotos de categoria quadradas e médias, sem dominar a página */
+.categories.category-tiles{
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  align-items:start!important;
+  gap:14px!important;
+}
+.category-tile{
+  aspect-ratio:auto!important;
+  min-height:0!important;
+  height:auto!important;
+  padding:12px!important;
+  gap:10px!important;
+}
+.category-tile-art{
+  width:100%!important;
+  max-width:132px!important;
+  height:auto!important;
+  aspect-ratio:1/1!important;
+  margin:0 auto!important;
+  border-radius:10px!important;
+}
+.category-tile-label{font-size:12px!important;line-height:1.25!important}
+.category-tile-count{font-size:9px!important}
+@media(max-width:900px){
+  .categories.category-tiles{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:11px!important}
+  .category-tile{padding:10px!important}
+  .category-tile-art{max-width:116px!important}
+}
+@media(max-width:620px){
+  .categories.category-tiles{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:9px!important;padding:18px 0 23px!important}
+  .category-tile{padding:8px!important;gap:8px!important;border-radius:10px!important}
+  .category-tile-art{max-width:100%!important;width:100%!important;aspect-ratio:1/1!important}
+  .category-tile-label{font-size:10px!important}
+  .category-tile-count{font-size:8px!important}
+}
