@@ -7,14 +7,14 @@ type Extra = { name:string; price:number };
 type CartLine = { key:string; product:Product; qty:number; note:string; extras:Extra[] };
 const extrasCatalog:Extra[] = [{name:"Cheddar extra",price:3},{name:"Bacon crocante",price:4},{name:"Ovo",price:2}];
 const categoryImages:Record<string,string>={
- "Hambúrgueres":"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=85",
- "Combos":"https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=85",
- "Churrasco":"https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=85",
- "Lanches":"https://images.unsplash.com/photo-1553909489-cd47e0ef937f?auto=format&fit=crop&w=600&q=85",
- "Porções":"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=85",
- "Pizzas":"https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=600&q=85",
- "Refrigerantes":"https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=600&q=85",
- "Bebidas":"https://images.unsplash.com/photo-1513558161293-cfaf765edfd7?auto=format&fit=crop&w=600&q=85"
+ "Hambúrgueres":"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=85",
+ "Combos":"https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=700&q=85",
+ "Churrasco":"https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=85",
+ "Lanches":"https://images.unsplash.com/photo-1553909489-cd47e0ef937f?auto=format&fit=crop&w=700&q=85",
+ "Porções":"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=700&q=85",
+ "Pizzas":"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=85",
+ "Refrigerantes":"https://images.unsplash.com/photo-1629203851122-3726ecdf080e?auto=format&fit=crop&w=700&q=85",
+ "Bebidas":"https://images.unsplash.com/photo-1536935338788846bb9981813?auto=format&fit=crop&w=700&q=85"
 };
 export default function Home(){
  const [products,setProducts]=useState<Product[]>(initialProducts);
@@ -44,7 +44,7 @@ export default function Home(){
   <section className="hero"><div className="heroimage"></div><div className="hero-content wrap"><div className="eyebrow"><Flame size={16}/> ACENDA SEU APETITE</div><h1>O sabor de verdade<br/>vem <em>da brasa.</em></h1><p>Hambúrgueres suculentos, churrasco no ponto e aquele capricho que transforma a fome em felicidade.</p><a className="primary" href="#cardapio">Explorar cardápio <ArrowRight size={18}/></a><div className="hero-foot"><span>🔥 Ingredientes selecionados</span><span>★ Feito na hora, com sabor</span></div></div><div className="hero-stamp"><strong>100%</strong><span>SABOR<br/>NA BRASA</span></div></section>
   <section className="perks wrap"><div><span className="perkicon"><Bike/></span><span><b>Delivery quentinho</b><small>Do nosso fogo até você</small></span></div><div><span className="perkicon"><Flame/></span><span><b>Feito na hora</b><small>Fresquinho e caprichado</small></span></div><div><span className="perkicon"><CheckCircle2/></span><span><b>Pedido sem complicação</b><small>Escolha, peça e aproveite</small></span></div></section>
   <section id="cardapio" className="menu-section wrap"><div className="section-head"><div><div className="eyebrow">NOSSO CARDÁPIO</div><h2>Escolha sua <em>tentação.</em></h2><p>Da brasa direto para a sua mesa.</p></div><label className="search"><Search size={18}/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Buscar no cardápio..."/></label></div>
-  <div className="categories category-tiles">{categories.filter(c=>c!=="Todos").map(c=><button key={c} className={"category-tile "+(category===c?"selected":"")} onClick={()=>setCategory(c)} aria-pressed={category===c}><span className="category-tile-art" style={{backgroundImage:"linear-gradient(180deg,#17110c22,#17110caa),url("+categoryImages[c]+")"}}></span><span className="category-tile-label">{c}</span><span className="category-tile-count">{products.filter(p=>p.available!==false&&p.category===c).length} itens</span></button>)}</div>
+  <div className="categories category-tiles">{categories.filter(c=>c!=="Todos").map(c=><button key={c} className={"category-tile "+(category===c?"selected":"")} onClick={()=>setCategory(c)} aria-pressed={category===c}><span className="category-tile-art"><img src={categoryImages[c]||categoryImages["Hambúrgueres"]} alt={c} loading="lazy"/><span className="category-photo-shade"></span></span><span className="category-tile-label">{c}</span><span className="category-tile-count">{products.filter(p=>p.available!==false&&p.category===c).length} itens</span></button>)}</div>
   {category!==""&&<div id="produtos" className="product-grid">{visible.map((p,i)=><article className="product" key={p.id}><div className={"product-art art-"+(i%6)} style={p.image?{backgroundImage:"linear-gradient(180deg, #17151405 35%, #171514b8 100%), url("+p.image+")"}:undefined}>{!p.image&&<span className="foodemoji">{p.emoji}</span>}{p.tag&&<span className="tag">{p.tag}</span>}<span className="heat">✦ FOGO NA BRASA</span></div><div className="product-info"><span className="product-cat">{p.category}</span><h3>{p.name}</h3><p>{p.description}</p><div className="product-bottom"><strong>{formatPrice(p.price)}</strong><button aria-label={"Adicionar "+p.name} onClick={()=>add(p)}><Plus size={19}/></button></div></div></article>)}</div>}
   {category!==""&&visible.length===0&&<div id="produtos" className="empty">Ainda não há itens disponíveis nesta categoria. 🔎</div>}
   {category===""&&search.trim()!==""&&<div id="produtos" className="product-grid">{visible.map((p,i)=><article className="product" key={p.id}><div className={"product-art art-"+(i%6)} style={p.image?{backgroundImage:"linear-gradient(180deg, #17151405 35%, #171514b8 100%), url("+p.image+")"}:undefined}>{!p.image&&<span className="foodemoji">{p.emoji}</span>}{p.tag&&<span className="tag">{p.tag}</span>}<span className="heat">✦ FOGO NA BRASA</span></div><div className="product-info"><span className="product-cat">{p.category}</span><h3>{p.name}</h3><p>{p.description}</p><div className="product-bottom"><strong>{formatPrice(p.price)}</strong><button aria-label={"Adicionar "+p.name} onClick={()=>add(p)}><Plus size={19}/></button></div></div></article>)}</div>}
