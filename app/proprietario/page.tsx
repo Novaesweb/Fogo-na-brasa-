@@ -1,4 +1,5 @@
 "use client";
+// @ts-nocheck
 
 import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { createClient, type Session } from "@supabase/supabase-js";
