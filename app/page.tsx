@@ -6,6 +6,7 @@ import { categories, initialProducts, formatPrice, type Product } from "./data";
 type Extra = { name:string; price:number };
 type CartLine = { key:string; product:Product; qty:number; note:string; extras:Extra[] };
 const extrasCatalog:Extra[] = [{name:"Cheddar extra",price:3},{name:"Bacon crocante",price:4},{name:"Ovo",price:2}];
+const categoryEmojis:Record<string,string>={"Todos":"🍽️","Hambúrgueres":"🍔","Combos":"🍔","Churrasco":"🔥","Lanches":"🥪","Porções":"🍟","Pizzas":"🍕","Refrigerantes":"🥤","Bebidas":"🧃"};
 export default function Home(){
  const [products,setProducts]=useState<Product[]>(initialProducts);
  const [cart,setCart]=useState<CartLine[]>([]);
