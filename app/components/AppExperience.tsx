@@ -11,6 +11,7 @@ export default function AppExperience({ children, buildVersion }: React.PropsWit
   const [pageLoading, setPageLoading] = useState(true);
   const [updateVersion, setUpdateVersion] = useState("");
   const [updateLoading, setUpdateLoading] = useState(false);
+  const [updateProgress, setUpdateProgress] = useState(0);
   const [updateError, setUpdateError] = useState("");
 
   const checkVersion = useCallback(async () => {
@@ -46,16 +47,21 @@ export default function AppExperience({ children, buildVersion }: React.PropsWit
   async function applyUpdate() {
     if (updateLoading) return;
     setUpdateLoading(true);
+    setUpdateProgress(8);
     setUpdateError("");
     try {
       const response = await fetch("/api/version", { cache: "no-store" });
       if (!response.ok) throw new Error("Não foi possível confirmar a nova versão.");
       await response.json();
-      // The progress animation gives the browser time to prepare the reload.
-      await new Promise((resolve) => window.setTimeout(resolve, 1600));
+      // Progress tracks the confirmation and preparation stages before reloading.
+      for (let progress = 16; progress <= 100; progress += 6) {
+        setUpdateProgress(Math.min(progress, 100));
+        await new Promise((resolve) => window.setTimeout(resolve, 95));
+      }
       window.location.reload();
     } catch {
       setUpdateLoading(false);
+      setUpdateProgress(0);
       setUpdateError("Não conseguimos confirmar a atualização. Verifique sua conexão e tente novamente.");
     }
   }
@@ -99,8 +105,8 @@ export default function AppExperience({ children, buildVersion }: React.PropsWit
             <span className="app-loading-logo"><RefreshCw size={27} className="app-update-spin" /></span>
             <strong>Atualizando o sistema</strong>
             <p>Preparando a nova versão. Não feche esta página.</p>
-            <div className="app-update-progress-track"><span /></div>
-            <div className="app-update-progress-label"><span>Aplicando atualização</span><b>100%</b></div>
+            <div className="app-update-progress-track"><span style={{ width: `${updateProgress}%` }} /></div>
+            <div className="app-update-progress-label"><span>Preparando a nova versão</span><b>{updateProgress}%</b></div>
             <small><CheckCircle2 size={14} /> A página será recarregada automaticamente</small>
           </div>
         </div>
