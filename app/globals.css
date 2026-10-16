@@ -646,6 +646,8 @@ body:has(input[type="email"]) form button{border:0!important;border-radius:12px!
 .owner-login-body{background:#0b0b0d url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=2200&q=90') center/cover fixed no-repeat!important;min-height:100vh}
 .owner-login-body:before{content:"";position:fixed;inset:0;background:linear-gradient(90deg,#0b0b0df5 0%,#0b0b0dcc 43%,#0b0b0d55 100%);pointer-events:none;z-index:-1}
 .owner-login-body main{max-width:1180px!important;margin:0 auto!important;padding:34px 28px 60px!important;background:transparent!important}
+.owner-login-body main>header{display:none!important}
+.owner-login-body main>div{max-width:1050px!important;margin:0 auto!important}
 .owner-login-body form{max-width:980px!important;margin:30px auto!important;border:1px solid #ef5a5038!important;border-radius:28px!important;background:linear-gradient(135deg,#241112f2,#100d0df5)!important;box-shadow:0 25px 70px #000b!important;padding:42px!important}
 .owner-login-body form input{display:block!important;width:100%!important;box-sizing:border-box!important;margin-top:9px!important;border:1px solid #ffffff24!important;border-radius:12px!important;background:#090909cc!important;color:#fff!important;padding:14px 15px!important}
 .owner-login-body form button{border:0!important;border-radius:12px!important;background:linear-gradient(100deg,#e92732,#ff9c3e)!important;color:#fff!important;padding:14px 18px!important;font-weight:800!important;box-shadow:0 12px 26px #e9273238!important}
