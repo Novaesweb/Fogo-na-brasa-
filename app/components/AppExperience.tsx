@@ -2,15 +2,17 @@
 
 import { useCallback, useEffect, useState, type PropsWithChildren } from "react";
 import { usePathname } from "next/navigation";
-import { BellRing, CheckCircle2, Flame, RefreshCw, X } from "lucide-react";
+import { BellRing, CheckCircle2, Clock3, Flame, Megaphone, RefreshCw, Wrench, X } from "lucide-react";
 
 type AppExperienceProps = { buildVersion: string };
+const STORE_ID = "6fab38d7-aa0b-4b27-9c93-1beac81fec39";
+type SiteStatus = { available: boolean; message: string; returnAt: string };
 
 export default function AppExperience({ children, buildVersion }: PropsWithChildren<AppExperienceProps>) {
   const pathname = usePathname();
   const isOwnerPortal = pathname.startsWith("/proprietario");
   const [pageLoading, setPageLoading] = useState(true);
-  const [siteStatus, setSiteStatus] = useState<{ available: boolean; message: string } | null>(null);
+  const [siteStatus, setSiteStatus] = useState<SiteStatus | null>(null);
   const [siteStatusChecked, setSiteStatusChecked] = useState(false);
   const [updateVersion, setUpdateVersion] = useState("");
   const [updateLoading, setUpdateLoading] = useState(false);
@@ -37,12 +39,16 @@ export default function AppExperience({ children, buildVersion }: PropsWithChild
         const response = await fetch("https://mabkzkawziqlmgfikwmh.supabase.co/functions/v1/novaesweb-site-status", {
           method: "POST",
           headers: { "Content-Type": "application/json", "apikey": "sb_publishable_j6QPu4fgCRZHhOnUPEdyvA_ixP9ibtr" },
-          body: JSON.stringify({ nx_id: "NX-FOGONABRASA-01" }),
+          body: JSON.stringify({ store_id: STORE_ID, nx_id: "NX-FOGONABRASA-01" }),
           cache: "no-store"
         });
         if (!response.ok) throw new Error("Status indisponível");
         const data = await response.json();
-        if (!cancelled) setSiteStatus({ available: data.available === true, message: typeof data.message === "string" ? data.message : "" });
+        if (!cancelled) setSiteStatus({
+          available: data.available === true,
+          message: typeof data.message === "string" ? data.message : "",
+          returnAt: typeof data.returnAt === "string" ? data.returnAt : typeof data.estimatedReturnAt === "string" ? data.estimatedReturnAt : typeof data.return_at === "string" ? data.return_at : "",
+        });
       } catch {
         // Uma falha temporária de rede é repetida no próximo ciclo.
       } finally {
@@ -102,13 +108,18 @@ export default function AppExperience({ children, buildVersion }: PropsWithChild
   return (
     <>
       {!isOwnerPortal && siteStatusChecked && siteStatus && !siteStatus.available ? (
-        <main className="min-h-screen bg-[#171514] text-white flex items-center justify-center px-6">
-          <section className="max-w-md text-center">
-            <span className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-500/15 text-orange-400"><Flame size={34}/></span>
-            <p className="text-xs font-bold tracking-[0.25em] text-orange-400">FOGO NA BRASA</p>
-            <h1 className="mt-3 text-2xl font-bold">Loja temporariamente indisponível</h1>
-            <p className="mt-3 text-sm leading-6 text-stone-300">{siteStatus.message || "Esta loja está temporariamente indisponível."}</p>
-            <p className="mt-6 text-xs text-stone-500">Status controlado pelo NovaesWeb Master.</p>
+        <main className="store-blocked-screen">
+          <div className="store-blocked-glow store-blocked-glow-blue" /><div className="store-blocked-glow store-blocked-glow-pink" />
+          <section className="store-blocked-shell" aria-labelledby="store-blocked-title">
+            <header className="store-blocked-brand"><span className="store-blocked-logo">N<span>N</span></span><strong>Novaes<span>Web</span></strong></header>
+            <div className="store-blocked-card">
+              <div className="store-blocked-status"><Wrench size={15} /> EM MANUTENÇÃO</div>
+              <h1 id="store-blocked-title">Voltamos em breve</h1>
+              <p className="store-blocked-subtitle">Esta loja está temporariamente indisponível.</p>
+              <div className="store-blocked-message"><Megaphone size={28} /><div><strong>COMUNICADO DA LOJA</strong><p>{siteStatus.message || "Estamos fazendo alguns ajustes para atender você melhor. Tente novamente mais tarde."}</p></div></div>
+              {siteStatus.returnAt && <div className="store-blocked-return"><Clock3 size={29} /><div><strong>Previsão de retorno</strong><span>{new Date(siteStatus.returnAt).toLocaleString("pt-BR", { dateStyle: "long", timeStyle: "short" })}</span></div></div>}
+            </div>
+            <footer className="store-blocked-footer"><i /> NovaesWeb Connect · Acesso seguro <i /></footer>
           </section>
         </main>
       ) : !isOwnerPortal && !siteStatusChecked ? (
@@ -159,3 +170,4 @@ export default function AppExperience({ children, buildVersion }: PropsWithChild
     </>
   );
 }
+
