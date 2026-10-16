@@ -28,6 +28,7 @@ export default function OwnerPortal() {
   const [passwordSetup, setPasswordSetup] = useState(false);
 
   useEffect(() => {
+    document.body.classList.add("owner-login-body");
     let mounted = true;
     supabase.auth.getSession().then(({ data }) => {
       if (!mounted) return;
@@ -40,7 +41,7 @@ export default function OwnerPortal() {
       setSession(nextSession);
       if (nextSession) setPasswordSetup((current) => current || window.location.hash.includes("type=invite") || window.location.hash.includes("type=recovery"));
     });
-    return () => { mounted = false; listener.subscription.unsubscribe(); };
+    return () => { mounted = false; listener.subscription.unsubscribe(); document.body.classList.remove("owner-login-body"); };
   }, []);
 
   const loadMessages = useCallback(async () => {
